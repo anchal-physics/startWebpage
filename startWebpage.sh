@@ -128,7 +128,7 @@ baseURL="$repoURL"/blob/master
 
 echo
 echo 'Starting a new jekyll website'
-jekyll start $repoName
+jekyll new $repoName
 mv ./$repoName/* ./
 rm -r $repoName
 
@@ -145,19 +145,27 @@ contactEmail=$REPLY
 githubUsername=$(strrep $repoURL https://github.com/ "")
 githubUsername=$(strrep $githubUsername /$repoName/ "")
 
+echo
+echo "Creating _config.yml file..."
 rm _config.yml
 getTemplateFile _config.yml
 prepTemplateFile _config.yml
 
+echo
+echo "Getting local test file..."
 getTemplateFile testLocally.sh
 chmod +x testLocally.sh
 
+echo
+echo "Creating _includes/FOOTER.HTML file..."
 mkdir _includes
 cd _includes
 getTemplateFile _includes/FOOTER.HTML
 prepTemplateFile FOOTER.HTML
 cd ..
 
+echo
+echo "Getting data/figures/GitHub-Mark-120px-plus.png file..."
 mkdir data
 cd data
 mkdir figures
@@ -165,14 +173,27 @@ cd figures
 getTemplateFile data/figures/GitHub-Mark-120px-plus.png
 cd ../..
 
-rm index.md
+echo
+echo "Creating index.md file..."
+rm index.markdown
 getTemplateFile index.md
 
+echo
+echo "Creating _pages ..."
 cd _pages
+rm ./*.md
+getTemplateFile about.md blog.md
+cd ..
+
+echo
+echo "Creating _posts ..."
+cd _posts
 rm ./*.md
 getTemplateFile 2022-09-05-template_post.md
 cd ..
 
+echo
+echo "Creating GitHub Action file .github/workflows/deploy.yml ..."
 mkdir .github
 cd .github
 mkdir workflow
