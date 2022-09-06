@@ -162,7 +162,6 @@ prepTemplateFile README.md
 
 echo
 echo "Creating index.md file..."
-rm index.markdown
 getTemplateFile index.md
 
 echo
@@ -208,8 +207,8 @@ echo
 echo "Creating GitHub Action file .github/workflows/deploy.yml ..."
 mkdir .github
 cd .github
-mkdir workflow
-cd workflow
+mkdir workflows
+cd workflows
 getTemplateFile .github/workflows/deploy.yml
 cd ../..
 
