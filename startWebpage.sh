@@ -120,11 +120,15 @@ repoURL="$(gh repo create $repoName $privacy)"
 cloneURL=$(strrep $repoURL https:// git@)
 cloneURL="$(strrep $cloneURL / :)".git
 
-# git clone $cloneURL
+git clone $cloneURL
 
 cd $repoName
 
 baseURL="$repoURL"/blob/master
+
+githubUsername=$(strrep $repoURL https://github.com/ "")
+githubUsername=$(strrep $githubUsername /$repoName "")
+echo "GitHub Username: "$githubUsername
 
 echo
 echo 'Starting a new jekyll website'
@@ -142,14 +146,12 @@ echo
 read -p 'Please enter a contact email:'
 contactEmail=$REPLY
 
-githubUsername=$(strrep $repoURL https://github.com/ "")
-githubUsername=$(strrep $githubUsername /$repoName "")
-echo $githubUsername
 
 echo
 echo "Creating _config.yml file..."
 rm _config.yml
 getTemplateFile _config.yml
+prepTemplateFile _config.yml
 prepTemplateFile _config.yml
 
 rm ./*.md
@@ -158,6 +160,7 @@ rm ./*.markdown
 echo
 echo "Creating README.md file..."
 getTemplateFile README.md
+prepTemplateFile README.md
 prepTemplateFile README.md
 
 echo
@@ -191,6 +194,7 @@ echo "Creating _includes/FOOTER.HTML file..."
 mkdir _includes
 cd _includes
 getTemplateFile _includes/FOOTER.HTML
+prepTemplateFile FOOTER.HTML
 prepTemplateFile FOOTER.HTML
 cd ..
 
