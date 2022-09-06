@@ -143,7 +143,7 @@ read -p 'Please enter a contact email:'
 contactEmail=$REPLY
 
 githubUsername=$(strrep $repoURL https://github.com/ "")
-githubUsername=$(strrep $githubUsername /$repoName/ "")
+githubUsername=$(strrep $githubUsername /$repoName "")
 echo $githubUsername
 
 echo
@@ -205,6 +205,7 @@ cd ../..
 
 echo
 echo "Creating GitHub Action file .github/workflows/deploy.yml ..."
+rm -r .github
 mkdir .github
 cd .github
 mkdir workflows
