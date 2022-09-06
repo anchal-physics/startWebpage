@@ -5,7 +5,7 @@ prepTemplateFile() {
     sed -i .bak 's|<repoName>|'"$repoName"'|' $file
     sed -i .bak 's|<webpageTitle>|'"$webpageTitle"'|' $file
     sed -i .bak 's|<contactEmail>|'"$contactEmail"'|' $file
-    sed -i .bak 's|githubUsername>|'"$outputFileName"'|' $file
+    sed -i .bak 's|<githubUsername>|'"$githubUsername"'|' $file
     rm $file.bak
 }
 
@@ -120,7 +120,7 @@ repoURL="$(gh repo create $repoName $privacy)"
 cloneURL=$(strrep $repoURL https:// git@)
 cloneURL="$(strrep $cloneURL / :)".git
 
-git clone $cloneURL
+# git clone $cloneURL
 
 cd $repoName
 
@@ -144,12 +144,43 @@ contactEmail=$REPLY
 
 githubUsername=$(strrep $repoURL https://github.com/ "")
 githubUsername=$(strrep $githubUsername /$repoName/ "")
+echo $githubUsername
 
 echo
 echo "Creating _config.yml file..."
 rm _config.yml
 getTemplateFile _config.yml
 prepTemplateFile _config.yml
+
+rm ./*.md
+rm ./*.markdown
+
+echo
+echo "Creating README.md file..."
+getTemplateFile README.md
+prepTemplateFile README.md
+
+echo
+echo "Creating index.md file..."
+rm index.markdown
+getTemplateFile index.md
+
+echo
+echo "Creating _pages ..."
+rm -r _pages
+mkdir _pages
+cd _pages
+getTemplateFile _pages/about.md
+getTemplateFile _pages/blog.md
+cd ..
+
+echo
+echo "Creating _posts ..."
+rm -r _posts
+mkdir _posts
+cd _posts
+getTemplateFile _posts/2022-09-05-template_post.md
+cd ..
 
 echo
 echo "Getting local test file..."
@@ -172,25 +203,6 @@ mkdir figures
 cd figures
 getTemplateFile data/figures/GitHub-Mark-120px-plus.png
 cd ../..
-
-echo
-echo "Creating index.md file..."
-rm index.markdown
-getTemplateFile index.md
-
-echo
-echo "Creating _pages ..."
-cd _pages
-rm ./*.md
-getTemplateFile about.md blog.md
-cd ..
-
-echo
-echo "Creating _posts ..."
-cd _posts
-rm ./*.md
-getTemplateFile 2022-09-05-template_post.md
-cd ..
 
 echo
 echo "Creating GitHub Action file .github/workflows/deploy.yml ..."
