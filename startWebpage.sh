@@ -226,6 +226,10 @@ git add .
 git commit -m "Initializing webpage."
 git push
 
+git checkout -b gh-pages
+git push -u origin gh-pages
+git checkout $(git remote show origin | sed -n '/HEAD branch/s/.*: //p')
+
 gh api 'repos/'$githubUsername'/'$repoName'/pages' -f "source[branch]=gh-pages" -f "source[path]=/"
 
 if [ $repoAtBase -eq 0 ]; then
