@@ -126,10 +126,11 @@ echo
 echo 'Now creating your repo remotely on Github and cloning a local copy.'
 repoURL="$(gh repo create $repoName $privacy)"
 
-cloneURL=$(strrep $repoURL https:// git@)
-cloneURL="$(strrep $cloneURL / :)".git
+# cloneURL=$(strrep $repoURL https:// git@)
+# cloneURL="$(strrep $cloneURL / :)".git
 
-git clone $cloneURL
+# git clone $cloneURL
+git clone 'git@github.com:'$githubUsername'/'$repoName'.git'
 
 cd $repoName
 
@@ -224,13 +225,13 @@ cd ../..
 
 git add .
 git commit -m "Initializing webpage."
-git push
+git push -f
 
 git checkout -b gh-pages
 git push -u origin gh-pages
 git checkout $(git remote show origin | sed -n '/HEAD branch/s/.*: //p')
 
-gh api 'repos/'$githubUsername'/'$repoName'/pages' -f "source[branch]=gh-pages" -f "source[path]=/"
+# gh api 'repos/'$githubUsername'/'$repoName'/pages' -f "source[branch]=gh-pages" -f "source[path]=/"
 
 if [ $repoAtBase -eq 0 ]; then
     echo "Your webpage will be live in about 2 min at https://"$githubUsername".github.io/"
