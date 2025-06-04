@@ -72,8 +72,8 @@ echo 'Installing ruby on your system:'
 sudo gem install ruby
 
 echo
-echo 'Installing bundler -v 2.4.22'
-sudo gem install bundler -v 2.4.22
+echo 'Installing bundler -v 2.3.14'
+sudo gem install bundler -v 2.3.14
 
 echo
 echo 'Installing github-pages gem'
