@@ -73,7 +73,7 @@ sudo gem install ruby
 
 echo
 echo 'Installing bundler'
-sudo gem install bundler
+sudo gem install bundler -v 2.4.22
 
 echo
 echo 'Installing github-pages gem'
