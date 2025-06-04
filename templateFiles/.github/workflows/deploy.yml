@@ -4,22 +4,14 @@ on:
     branches:
       - main
 jobs:
-  BuildAndDeploy:
+  build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Install ruby
-        uses: actions/setup-ruby@v1
-        with:
-          ruby-version: '2.6'
-      - name: Install bundler
-        run: gem install bundler
-      - name: Install jekyll
-        run: bundle install
-      - name: Build webpage
-        run: bundle exec jekyll build
-      - name: Deploy webpage
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site/
+      - name: GitHub Checkout
+        uses: actions/checkout@v2
+      - name: Build & Deploy to GitHub Pages
+        uses: anchal-physics/jekyll4-deploy-gh-pages@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
+          GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
