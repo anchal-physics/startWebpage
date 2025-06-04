@@ -72,7 +72,7 @@ echo 'Installing ruby on your system:'
 sudo gem install ruby
 
 echo
-echo 'Installing bundler'
+echo 'Installing bundler -v 2.4.22'
 sudo gem install bundler -v 2.4.22
 
 echo
@@ -91,7 +91,7 @@ githubUsername="$(gh api user | jq -r '.login')"
 echo
 echo 'Choose a name for your webpage project. For example: workWebpage'
 echo 'This will make your site address: https://'$githubUsername'.github.io/workWebpage/'
-echo 'Leave empty (just press enter) to make your site as: https://'$githubUsername'.github.io . This option is good for creating '
+echo 'Leave empty (just press enter) to make your site as: https://'$githubUsername'.github.io . This option is good for creating personal webpage'
 read -p 'This will be the name of your repo: '
 if [ -z "$REPLY" ]; then
   repoAtBase=0
