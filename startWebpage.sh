@@ -135,10 +135,6 @@ cd $repoName
 
 baseURL="$repoURL"/blob/master
 
-githubUsername=$(strrep $repoURL https://github.com/ "")
-githubUsername=$(strrep $githubUsername /$repoName "")
-echo "GitHub Username: "$githubUsername
-
 echo
 echo 'Starting a new jekyll website'
 jekyll new $repoName
@@ -229,6 +225,8 @@ cd ../..
 git add .
 git commit -m "Initializing webpage."
 git push
+
+gh api 'repos/'$githubUsername'/'$repoName'/pages' -f "source[branch]=gh-pages" -f "source[path]=/"
 
 if [ $repoAtBase -eq 0 ]; then
     echo "Your webpage will be live in about 2 min at https://"$githubUsername".github.io/"
