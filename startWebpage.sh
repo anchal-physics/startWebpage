@@ -231,9 +231,9 @@ git commit -m "Initializing webpage."
 git push
 
 if [ $repoAtBase -eq 0 ]; then
-    echo "Your webpage is now live at https://"$githubUsername".github.io/"
+    echo "Your webpage will be live in about 2 min at https://"$githubUsername".github.io/"
 else
-    echo "Your webpage is now live at https://"$githubUsername".github.io/"$repoName"/"
+    echo "Your webpage will be live in about 2 min at https://"$githubUsername".github.io/"$repoName"/"
 fi
 echo "You can make changes to your local files at index.md, _pages, or _post"
 echo "and push to update the webpage."
