@@ -6,6 +6,10 @@ on:
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: write
+      statuses: write
     steps:
       - name: GitHub Checkout
         uses: actions/checkout@v2
