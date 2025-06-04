@@ -86,11 +86,20 @@ echo
 echo 'Logging into Github'
 gh auth login
 
+githubUsername="$(gh api user | jq -r '.login')"
+
 echo
-echo 'Choose a name for your webpage project. For example: personalWebpage'
-echo 'This will make your site address: https://<github_username>.github.io/personalWebpage/'
+echo 'Choose a name for your webpage project. For example: workWebpage'
+echo 'This will make your site address: https://'$githubUsername'.github.io/workWebpage/'
+echo 'Leave empty (just press enter) to make your site as: https://'$githubUsername'.github.io . This option is good for creating '
 read -p 'This will be the name of your repo: '
-repoName=$REPLY
+if [ -z "$REPLY" ]; then
+  repoAtBase=0
+  repoName=$githubUsername'.github.io'
+else
+  repoAtBase=1
+  repoName=$REPLY
+fi
 
 echo
 echo 'Git repo will be created and cloned to current directory'
@@ -221,7 +230,11 @@ git add .
 git commit -m "Initializing webpage."
 git push
 
-echo "Your webpage is now live at https://"$githubUsername".github.io/"$repoName"/"
+if [ $repoAtBase -eq 0 ]; then
+    echo "Your webpage is now live at https://"$githubUsername".github.io/"
+else
+    echo "Your webpage is now live at https://"$githubUsername".github.io/"$repoName"/"
+fi
 echo "You can make changes to your local files at index.md, _pages, or _post"
 echo "and push to update the webpage."
 echo "You can test your changes locally by running ./testLocally.sh "
